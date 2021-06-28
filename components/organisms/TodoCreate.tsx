@@ -3,14 +3,11 @@ import { useTodoContext } from '../../contexts/TodoContext';
 
 const TodoCreate: React.FC = () => {
   const [text, setText] = useState('');
-  const { todos, setTodos } = useTodoContext();
+  const { dispatch } = useTodoContext();
 
   const onCreate = useCallback(
-    (text: string) => {
-      const lastTodo = todos[todos.length - 1];
-      setTodos(todos.concat({ id: lastTodo.id + 1, text }));
-    },
-    [todos]
+    (text: string) => dispatch({ type: 'CREATE', text }),
+    []
   );
 
   const onChange = useCallback((e) => {

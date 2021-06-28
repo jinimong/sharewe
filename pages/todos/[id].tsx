@@ -6,7 +6,10 @@ const TodoDetail: React.FC = () => {
   const {
     query: { id },
   } = useRouter();
-  const { todos } = useTodoContext();
+  const {
+    state: { todos },
+  } = useTodoContext();
+
   if (!id) {
     return <div>404</div>;
   }
