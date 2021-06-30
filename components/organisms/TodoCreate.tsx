@@ -1,14 +1,21 @@
 import React, { useCallback, useState } from 'react';
+import { supabase } from '../../api';
 import { useTodoContext } from '../../contexts/TodoContext';
 
 const TodoCreate: React.FC = () => {
   const [text, setText] = useState('');
   const { dispatch } = useTodoContext();
 
-  const onCreate = useCallback(
-    (text: string) => dispatch({ type: 'CREATE', text }),
-    []
-  );
+  const onCreate = useCallback(async (text: string) => {
+    const { data, error } = await supabase
+      .from('todos')
+      .insert([{ text }])
+      .single();
+    const { id } = data;
+    if (!error) {
+      dispatch({ type: 'CREATE', id, text });
+    }
+  }, []);
 
   const onChange = useCallback((e) => {
     setText(e.target.value);

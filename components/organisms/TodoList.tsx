@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import Link from 'next/link';
 import { useTodoContext } from '../../contexts/TodoContext';
+import { supabase } from '../../api';
 
 const TodoList: React.FC = () => {
   const {
@@ -9,12 +10,28 @@ const TodoList: React.FC = () => {
   } = useTodoContext();
 
   const onDelete = useCallback(
-    (id: number) => () => dispatch({ type: 'DELETE', id }),
+    (id: number) => async () => {
+      const { data, error } = await supabase
+        .from('todos')
+        .delete()
+        .match({ id });
+      if (!error) {
+        dispatch({ type: 'DELETE', id });
+      }
+    },
     []
   );
 
   const onToggle = useCallback(
-    (id: number) => () => dispatch({ type: 'TOGGLE', id }),
+    (id: number, done: boolean) => async () => {
+      const { data, error } = await supabase
+        .from('todos')
+        .update({ done })
+        .match({ id });
+      if (!error) {
+        dispatch({ type: 'TOGGLE', id });
+      }
+    },
     []
   );
 
@@ -23,7 +40,7 @@ const TodoList: React.FC = () => {
       {todos.map(({ id, text, done }) => (
         <li
           key={id}
-          onClick={onToggle(id)}
+          onClick={onToggle(id, !done)}
           className="w-1/2 mx-auto my-1 border border-gray-400 rounded relative cursor-pointer"
         >
           <span

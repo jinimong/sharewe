@@ -7,13 +7,10 @@ export type TodoType = {
   done: boolean;
 };
 
-type StateType = { todos: TodoType[] };
+export type StateType = { todos: TodoType[] };
 
 const initialState: StateType = {
-  todos: [
-    { id: 1, text: 'hello', done: true },
-    { id: 2, text: 'world', done: false },
-  ],
+  todos: [],
 };
 
 const TodoContext = createContext<{
@@ -25,7 +22,12 @@ export const useTodoContext = () => useContext(TodoContext);
 
 type ActionType =
   | {
+      type: 'INITIALIZE';
+      todos: TodoType[];
+    }
+  | {
       type: 'CREATE';
+      id: number;
       text: string;
     }
   | {
@@ -41,11 +43,17 @@ const reducer = (state: StateType, action: ActionType) => {
   const { todos } = state;
 
   switch (action.type) {
-    case 'CREATE':
-      const newId = (todos[todos.length - 1]?.id || 0) + 1;
+    case 'INITIALIZE':
       return {
         ...state,
-        todos: todos.concat({ id: newId, text: action.text, done: false }),
+        todos: action.todos,
+      };
+
+    case 'CREATE':
+      const { id, text } = action;
+      return {
+        ...state,
+        todos: todos.concat({ id, text: action.text, done: false }),
       };
 
     case 'DELETE':
