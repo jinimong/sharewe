@@ -38,8 +38,9 @@ const TodoCreate: React.FC = () => {
       <input
         value={text}
         onChange={onChange}
-        className="w-full h-full text-center"
+        className="w-full h-full text-center font-light text-sm"
         placeholder="Write todo ..."
+        required
       />
       <button
         type="submit"

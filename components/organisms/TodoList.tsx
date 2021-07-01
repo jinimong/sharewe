@@ -11,10 +11,7 @@ const TodoList: React.FC = () => {
 
   const onDelete = useCallback(
     (id: number) => async () => {
-      const { data, error } = await supabase
-        .from('todos')
-        .delete()
-        .match({ id });
+      const { error } = await supabase.from('todos').delete().match({ id });
       if (!error) {
         dispatch({ type: 'DELETE', id });
       }
@@ -24,7 +21,7 @@ const TodoList: React.FC = () => {
 
   const onToggle = useCallback(
     (id: number, done: boolean) => async () => {
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('todos')
         .update({ done })
         .match({ id });
@@ -48,18 +45,20 @@ const TodoList: React.FC = () => {
           >
             {text}
           </span>
-          <Link href={`/todos/${id}`}>
-            <a className="absolute text-gray-200 hover:text-white hover:bg-gray-200 h-full top-0 bottom-0 right-5 my-auto rounded px-1">
-              ➡️
-            </a>
-          </Link>
-          <button
-            type="button"
-            onClick={onDelete(id)}
-            className="absolute text-gray-200 hover:text-white hover:bg-gray-200 h-3/4 top-0 bottom-0 right-1 my-auto rounded px-1 text-xs"
-          >
-            X
-          </button>
+          <div className="flex items-center absolute top-0 bottom-0 -right-12">
+            <Link href={`/todos/${id}`}>
+              <a className="text-gray-200 hover:text-white hover:bg-gray-200 h-full my-auto rounded px-1">
+                ➡️
+              </a>
+            </Link>
+            <button
+              type="button"
+              onClick={onDelete(id)}
+              className="text-gray-200 hover:text-white hover:bg-gray-200 h-3/4 my-auto rounded px-1 text-xs"
+            >
+              X
+            </button>
+          </div>
         </li>
       ))}
     </ul>

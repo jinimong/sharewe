@@ -1,12 +1,35 @@
 import type { AppProps } from 'next/app';
+import { useCallback } from 'react';
 import 'tailwindcss/tailwind.css';
+import Navigation from '../components/organisms/Navigation';
+import { AuthContextProvider } from '../contexts/AuthContext';
 import { TodoContextProvider } from '../contexts/TodoContext';
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const prevent = useCallback((e) => {
+    e.preventDefault();
+  }, []);
   return (
-    <TodoContextProvider>
-      <Component {...pageProps} />
-    </TodoContextProvider>
+    <AuthContextProvider>
+      <TodoContextProvider>
+        <div
+          onContextMenu={prevent}
+          onDragStart={prevent}
+          className="w-screen h-screen flex justify-center items-center"
+          style={{
+            WebkitTouchCallout: 'none',
+            WebkitUserSelect: 'none',
+            KhtmlUserSelect: 'none',
+            MozUserSelect: 'none',
+            msUserSelect: 'none',
+            userSelect: 'none',
+          }}
+        >
+          <Navigation />
+          <Component {...pageProps} />
+        </div>
+      </TodoContextProvider>
+    </AuthContextProvider>
   );
 }
 

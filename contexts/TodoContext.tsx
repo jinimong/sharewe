@@ -53,7 +53,7 @@ const reducer = (state: StateType, action: ActionType) => {
       const { id, text } = action;
       return {
         ...state,
-        todos: todos.concat({ id, text: action.text, done: false }),
+        todos: todos.concat({ id, text, done: false }),
       };
 
     case 'DELETE':
