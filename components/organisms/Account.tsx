@@ -62,7 +62,9 @@ const Account: React.FC = () => {
   };
 
   useEffect(() => {
-    getProfile();
+    if (session) {
+      getProfile();
+    }
   }, [session]);
 
   return (
