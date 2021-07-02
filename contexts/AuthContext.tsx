@@ -9,12 +9,11 @@ const loginPageUrl = '/login';
 export const withAuth = (Component: any) => {
   const Auth = (props: any) => {
     const router = useRouter();
-    const { session } = props;
+    const { session } = useAuthContext();
     if (!session) {
       if (typeof window !== 'undefined') {
         router.push(loginPageUrl);
       }
-      return null;
     }
     return <Component {...props} />;
   };
