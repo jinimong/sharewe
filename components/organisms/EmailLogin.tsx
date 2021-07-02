@@ -33,7 +33,7 @@ const EmailLogin: React.FC = () => {
         />
         <Button
           fullWidth
-          onClick={(e) => {
+          onClick={(e: MouseEvent) => {
             e.preventDefault();
             handleLogin(email);
           }}

@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Session } from '@supabase/supabase-js';
 import { supabase } from '../../api';
+import { useAuthContext } from '../../contexts/AuthContext';
+import FormInput from '../atomics/FormInput';
+import Button from '../atomics/Button';
 
-type AccountProps = {
-  session: Session;
-};
-
-const Account: React.FC<AccountProps> = ({ session }) => {
+const Account: React.FC = () => {
+  const { session } = useAuthContext();
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState<string | null>(null);
   const [avatar, setAvatar] = useState<string | null>(null);
@@ -17,7 +17,7 @@ const Account: React.FC<AccountProps> = ({ session }) => {
       const user = supabase.auth.user();
       const { data, error, status } = await supabase
         .from('profiles')
-        .select(`username, avater_url`)
+        .select(`username, avatar_url`)
         .eq('id', user?.id)
         .single();
 
@@ -66,36 +66,30 @@ const Account: React.FC<AccountProps> = ({ session }) => {
   }, [session]);
 
   return (
-    <div className="form-widget">
-      <div>
-        <label htmlFor="email">Email</label>
-        <input id="email" type="text" value={session?.user?.email} disabled />
-      </div>
-      <div>
-        <label htmlFor="username">Name</label>
-        <input
-          id="username"
+    <div className="w-1/3 flex flex-col items-center space-y-8">
+      <div className="w-full space-y-8">
+        <FormInput
+          fieldName="email"
+          type="text"
+          value={session?.user?.email}
+          disabled
+        />
+        <FormInput
+          fieldName="username"
           type="text"
           value={username || ''}
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setUsername(e.target.value)
+          }
         />
       </div>
-      <div>
-        <button
-          className="button block primary"
+      <div className="self-end">
+        <Button
           onClick={() => updateProfile({ username, avatar })}
           disabled={loading}
         >
-          {loading ? 'Loading ...' : 'Update'}
-        </button>
-      </div>
-      <div>
-        <button
-          className="button block"
-          onClick={() => supabase.auth.signOut()}
-        >
-          Sign Out
-        </button>
+          {loading ? 'Saving ...' : 'Save'}
+        </Button>
       </div>
     </div>
   );
