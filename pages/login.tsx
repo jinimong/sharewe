@@ -1,6 +1,6 @@
+import React from 'react';
 import EmailLogin from '../components/organisms/EmailLogin';
-import { useAuthContext } from '../contexts/AuthContext';
 
-export default function Login() {
-  return <EmailLogin />;
-}
+const Login: React.FC = () => <EmailLogin />;
+
+export default Login;

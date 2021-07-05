@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
@@ -7,7 +7,7 @@ type ActiveLinkProps = {
   href: string;
 };
 
-export default function ActiveLink({ children, href }: ActiveLinkProps) {
+const ActiveLink: React.FC<ActiveLinkProps> = ({ children, href }) => {
   const { pathname } = useRouter();
   const isActive = pathname === href;
   return (
@@ -17,4 +17,6 @@ export default function ActiveLink({ children, href }: ActiveLinkProps) {
       </a>
     </Link>
   );
-}
+};
+
+export default ActiveLink;

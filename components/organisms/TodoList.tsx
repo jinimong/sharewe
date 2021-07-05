@@ -16,7 +16,7 @@ const TodoList: React.FC = () => {
         dispatch({ type: 'DELETE', id });
       }
     },
-    []
+    [dispatch]
   );
 
   const onToggle = useCallback(
@@ -29,7 +29,7 @@ const TodoList: React.FC = () => {
         dispatch({ type: 'TOGGLE', id });
       }
     },
-    []
+    [dispatch]
   );
 
   return (
@@ -37,6 +37,7 @@ const TodoList: React.FC = () => {
       {todos.map(({ id, text, done }) => (
         <li
           key={id}
+          role="presentation"
           onClick={onToggle(id, !done)}
           className="w-1/2 mx-auto my-1 border border-gray-400 rounded relative cursor-pointer"
         >
@@ -48,7 +49,9 @@ const TodoList: React.FC = () => {
           <div className="flex items-center absolute top-0 bottom-0 -right-12">
             <Link href={`/todos/${id}`}>
               <a className="text-gray-200 hover:text-white hover:bg-gray-200 h-full my-auto rounded px-1">
-                ➡️
+                <span role="img" aria-label="detail">
+                  ➡️
+                </span>
               </a>
             </Link>
             <button

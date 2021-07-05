@@ -6,16 +6,19 @@ const TodoCreate: React.FC = () => {
   const [text, setText] = useState('');
   const { dispatch } = useTodoContext();
 
-  const onCreate = useCallback(async (text: string) => {
-    const { data, error } = await supabase
-      .from('todos')
-      .insert([{ text }])
-      .single();
-    const { id } = data;
-    if (!error) {
-      dispatch({ type: 'CREATE', id, text });
-    }
-  }, []);
+  const onCreate = useCallback(
+    async (text: string) => {
+      const { data, error } = await supabase
+        .from('todos')
+        .insert([{ text }])
+        .single();
+      const { id } = data;
+      if (!error) {
+        dispatch({ type: 'CREATE', id, text });
+      }
+    },
+    [dispatch]
+  );
 
   const onChange = useCallback((e) => {
     setText(e.target.value);

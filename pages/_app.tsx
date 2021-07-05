@@ -1,11 +1,11 @@
 import type { AppProps } from 'next/app';
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 import 'tailwindcss/tailwind.css';
 import Navigation from '../components/organisms/Navigation';
 import { AuthContextProvider } from '../contexts/AuthContext';
 import { TodoContextProvider } from '../contexts/TodoContext';
 
-function MyApp({ Component, pageProps }: AppProps) {
+const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   const prevent = useCallback((e) => {
     e.preventDefault();
   }, []);
@@ -31,6 +31,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       </TodoContextProvider>
     </AuthContextProvider>
   );
-}
+};
 
 export default MyApp;

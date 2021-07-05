@@ -1,3 +1,4 @@
+import { GetServerSideProps } from 'next';
 import { useEffect } from 'react';
 import { supabase } from '../../api';
 import TodoCreate from '../../components/organisms/TodoCreate';
@@ -20,9 +21,9 @@ const Todos: React.FC<StateType> = ({ todos }) => {
   );
 };
 
-export async function getServerSideProps() {
+export const getServerSideProps: GetServerSideProps = async () => {
   const { data: todos, error } = await supabase.from('todos').select();
-  return { props: { todos } };
-}
+  return { props: { todos, error } };
+};
 
 export default withAuth(Todos);

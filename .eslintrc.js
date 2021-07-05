@@ -26,7 +26,6 @@ module.exports = {
         'plugin:jsx-a11y/recommended', // Accessibility rules
         'plugin:prettier/recommended', // Prettier plugin
         'prettier',
-        'prettier/@typescript-eslint',
         'plugin:@typescript-eslint/recommended',
       ],
       rules: {
@@ -42,18 +41,9 @@ module.exports = {
         // Why would you want unused vars?
         '@typescript-eslint/no-unused-vars': ['error'],
 
-        // I suggest this setting for requiring return types on functions only where useful
-        '@typescript-eslint/explicit-function-return-type': [
-          'warn',
-          {
-            allowExpressions: true,
-            allowConciseArrowFunctionExpressionsStartingWithVoid: true,
-          },
-        ],
-
         // Includes .prettierrc.js rules
         'prettier/prettier': ['error', {}, { usePrettierrc: true }],
       },
     },
   ],
-}
+};

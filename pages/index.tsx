@@ -1,7 +1,8 @@
 import Link from 'next/link';
+import React from 'react';
 import { useAuthContext } from '../contexts/AuthContext';
 
-export default function Home() {
+const Home: React.FC = () => {
   const { session } = useAuthContext();
   return (
     <div className="text-center">
@@ -11,4 +12,6 @@ export default function Home() {
       {!session ? <Link href="/login">Login</Link> : <div>Dashboard</div>}
     </div>
   );
-}
+};
+
+export default Home;

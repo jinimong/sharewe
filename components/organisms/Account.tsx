@@ -1,5 +1,4 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { Session } from '@supabase/supabase-js';
 import { supabase } from '../../api';
 import { useAuthContext } from '../../contexts/AuthContext';
 import FormInput from '../atomics/FormInput';
