@@ -13,7 +13,7 @@ const FormInput: React.FC<FormInputProps> = ({ fieldName, ...rest }) => (
     <input
       id={fieldName}
       {...rest}
-      className="text-right disabled:text-gray-400 disabled:bg-transparent"
+      className="text-right w-1/2 disabled:text-gray-400 disabled:bg-transparent"
     />
   </div>
 );

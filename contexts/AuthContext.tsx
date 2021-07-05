@@ -2,7 +2,6 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Session } from '@supabase/supabase-js';
 import { supabase } from '../api';
-import EmailLogin from '../components/organisms/EmailLogin';
 
 const loginPageUrl = '/login';
 

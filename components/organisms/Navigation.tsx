@@ -15,7 +15,8 @@ const Navigation: React.FC = () => {
         <ActiveLink href="/todos">Todos</ActiveLink>
         {session ? (
           <>
-            <ActiveLink href="/profile">Profile</ActiveLink>
+            <span>|</span>
+            <ActiveLink href="/profile">{session?.user?.email}</ActiveLink>
             <button onClick={() => supabase.auth.signOut()}>Logout</button>
           </>
         ) : (
