@@ -9,17 +9,21 @@ import { StateType, useTodoContext } from '../../contexts/TodoContext';
 const Todos: React.FC<StateType> = () => {
   const { dispatch } = useTodoContext();
   const user = supabase.auth.user();
-  useEffect(async () => {
+
+  useEffect(() => {
     if (user) {
-      const { data: todos, error } = await supabase
-        .from('todos')
-        .select()
-        .eq('user', user?.id);
-      if (error) {
-        alert(error.message);
-      } else {
-        dispatch({ type: 'INITIALIZE', todos });
-      }
+      const fetchTodos = async () => {
+        const { data: todos, error } = await supabase
+          .from('todos')
+          .select()
+          .eq('user', user?.id);
+        if (error) {
+          alert(error.message);
+        } else {
+          dispatch({ type: 'INITIALIZE', todos });
+        }
+      };
+      fetchTodos();
     }
   }, [dispatch, user]);
 
