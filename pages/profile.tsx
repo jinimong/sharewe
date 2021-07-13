@@ -1,6 +1,6 @@
 import React from 'react';
 import Account from '../components/organisms/Account';
-import { withAuth } from '../contexts/AuthContext';
+import withAuth from '../helpers/withAuth';
 
 const Profile: React.FC = () => <Account />;
 

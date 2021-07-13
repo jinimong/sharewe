@@ -1,11 +1,10 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { supabase } from '../../api';
-import { useAuthContext } from '../../contexts/AuthContext';
 import FormInput from '../atomics/FormInput';
 import Button from '../atomics/Button';
 
 const Account: React.FC = () => {
-  const { session } = useAuthContext();
+  const user = supabase.auth.user();
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState<string | null>(null);
   const [avatar, setAvatar] = useState<string | null>(null);
@@ -61,20 +60,15 @@ const Account: React.FC = () => {
   };
 
   useEffect(() => {
-    if (session) {
+    if (user) {
       getProfile();
     }
-  }, [session]);
+  }, [user]);
 
   return (
     <div className="w-1/3 flex flex-col items-center space-y-8">
       <div className="w-full space-y-8">
-        <FormInput
-          fieldName="email"
-          type="text"
-          value={session?.user?.email}
-          disabled
-        />
+        <FormInput fieldName="email" type="text" value={user?.email} disabled />
         <FormInput
           fieldName="username"
           type="text"

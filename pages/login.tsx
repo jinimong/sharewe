@@ -2,16 +2,15 @@ import React, { useEffect } from 'react';
 import { Auth } from '@supabase/ui';
 import { supabase } from '../api';
 import { useRouter } from 'next/router';
-import { useAuthContext } from '../contexts/AuthContext';
 
 const Login: React.FC = () => {
-  const { session } = useAuthContext();
+  const user = supabase.auth.user();
   const router = useRouter();
   useEffect(() => {
-    if (session) {
+    if (user) {
       router.replace('/');
     }
-  }, [session]);
+  }, [user]);
   return (
     <div className="w-1/4 mx-auto max-w-md">
       <Auth
