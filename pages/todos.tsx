@@ -1,10 +1,10 @@
 import { GetServerSideProps } from 'next';
 import { useEffect } from 'react';
-import { supabase } from '../../api';
-import TodoCreate from '../../components/organisms/TodoCreate';
-import TodoList from '../../components/organisms/TodoList';
-import withAuth from '../../helpers/withAuth';
-import { StateType, useTodoContext } from '../../contexts/TodoContext';
+import { supabase } from '../api';
+import TodoCreate from '../components/organisms/TodoCreate';
+import TodoList from '../components/organisms/TodoList';
+import withAuth from '../helpers/withAuth';
+import { StateType, useTodoContext } from '../contexts/TodoContext';
 
 const Todos: React.FC<StateType> = () => {
   const { dispatch } = useTodoContext();

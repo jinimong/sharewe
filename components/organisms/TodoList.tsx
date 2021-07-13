@@ -46,18 +46,11 @@ const TodoList: React.FC = () => {
           >
             {text}
           </span>
-          <div className="flex items-center absolute top-0 bottom-0 -right-12">
-            <Link href={`/todos/${id}`}>
-              <a className="text-gray-200 hover:text-white hover:bg-gray-200 h-full my-auto rounded px-1">
-                <span role="img" aria-label="detail">
-                  ➡️
-                </span>
-              </a>
-            </Link>
+          <div className="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-end">
             <button
               type="button"
               onClick={onDelete(id)}
-              className="text-gray-200 hover:text-white hover:bg-gray-200 h-3/4 my-auto rounded px-1 text-xs"
+              className="text-gray-400 hover:font-bold h-3/4 my-auto mx-1 rounded px-1 text-xs"
             >
               X
             </button>
