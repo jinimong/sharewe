@@ -46,7 +46,7 @@ const reducer = (state: StateType, action: ActionType) => {
     case 'INITIALIZE':
       return {
         ...state,
-        todos: action.todos,
+        todos: action.todos || [],
       };
 
     case 'CREATE':

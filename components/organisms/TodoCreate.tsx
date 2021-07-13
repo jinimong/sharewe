@@ -5,19 +5,22 @@ import { useTodoContext } from '../../contexts/TodoContext';
 const TodoCreate: React.FC = () => {
   const [text, setText] = useState('');
   const { dispatch } = useTodoContext();
+  const user = supabase.auth.user();
 
   const onCreate = useCallback(
     async (text: string) => {
       const { data, error } = await supabase
         .from('todos')
-        .insert([{ text }])
+        .insert([{ text, user: user?.id }])
         .single();
-      const { id } = data;
-      if (!error) {
+      if (error) {
+        alert(error.message);
+      } else {
+        const { id } = data;
         dispatch({ type: 'CREATE', id, text });
       }
     },
-    [dispatch]
+    [dispatch, user]
   );
 
   const onChange = useCallback((e) => {

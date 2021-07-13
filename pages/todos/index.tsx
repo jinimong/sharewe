@@ -6,11 +6,22 @@ import TodoList from '../../components/organisms/TodoList';
 import { withAuth } from '../../contexts/AuthContext';
 import { StateType, useTodoContext } from '../../contexts/TodoContext';
 
-const Todos: React.FC<StateType> = ({ todos }) => {
+const Todos: React.FC<StateType> = () => {
   const { dispatch } = useTodoContext();
-  useEffect(() => {
-    dispatch({ type: 'INITIALIZE', todos });
-  }, [dispatch, todos]);
+  const user = supabase.auth.user();
+  useEffect(async () => {
+    if (user) {
+      const { data: todos, error } = await supabase
+        .from('todos')
+        .select()
+        .eq('user', user?.id);
+      if (error) {
+        alert(error.message);
+      } else {
+        dispatch({ type: 'INITIALIZE', todos });
+      }
+    }
+  }, [dispatch, user]);
 
   return (
     <div className="w-full h-full text-center">
@@ -19,11 +30,6 @@ const Todos: React.FC<StateType> = ({ todos }) => {
       <TodoCreate />
     </div>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const { data: todos, error } = await supabase.from('todos').select();
-  return { props: { todos, error } };
 };
 
 export default withAuth(Todos);
