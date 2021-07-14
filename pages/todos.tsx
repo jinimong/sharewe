@@ -19,7 +19,8 @@ const Todos: React.FC<StateType> = () => {
         const { data: todos, error } = await supabase
           .from('todos')
           .select()
-          .eq('user', user?.id);
+          .eq('user', user?.id)
+          .order('id');
         if (error) {
           alert(error.message);
         } else {
@@ -34,8 +35,8 @@ const Todos: React.FC<StateType> = () => {
   return (
     <div className="w-full h-full text-center">
       <div className="py-16 text-xl">To Do App</div>
-      <TodoCreate />
       {loading ? <>loading...</> : <TodoList />}
+      <TodoCreate />
     </div>
   );
 };

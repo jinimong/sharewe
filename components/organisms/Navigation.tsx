@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { supabase } from '../../api';
 import ActiveLink from '../atomics/ActiveLink';
@@ -19,7 +20,20 @@ const Navigation: React.FC = () => {
         {user ? (
           <>
             <span>|</span>
-            <ActiveLink href="/profile">{user.email}</ActiveLink>
+            <ActiveLink href="/profile">
+              <a className="flex justify-center items-center space-x-2">
+                {user.user_metadata.avatar_url && (
+                  <Image
+                    className="rounded-full"
+                    src={user.user_metadata.avatar_url}
+                    width={32}
+                    height={32}
+                    alt=""
+                  />
+                )}
+                <span>{user.email}</span>
+              </a>
+            </ActiveLink>
             <button
               onClick={() => {
                 supabase.auth.signOut();
