@@ -5,10 +5,11 @@ import TodoCreate from '../components/organisms/TodoCreate';
 import TodoList from '../components/organisms/TodoList';
 import withAuth from '../helpers/withAuth';
 import { StateType, useTodoContext } from '../contexts/TodoContext';
+import { useAuthContext } from '../contexts/AuthContext';
 
 const Todos: React.FC<StateType> = () => {
   const { dispatch } = useTodoContext();
-  const user = supabase.auth.user();
+  const { user } = useAuthContext();
 
   useEffect(() => {
     if (user) {

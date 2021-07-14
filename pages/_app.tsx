@@ -2,6 +2,7 @@ import type { AppProps } from 'next/app';
 import React, { useCallback } from 'react';
 import 'tailwindcss/tailwind.css';
 import Navigation from '../components/organisms/Navigation';
+import { AuthContextProvider } from '../contexts/AuthContext';
 import { TodoContextProvider } from '../contexts/TodoContext';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
@@ -9,24 +10,26 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     e.preventDefault();
   }, []);
   return (
-    <TodoContextProvider>
-      <div
-        onContextMenu={prevent}
-        onDragStart={prevent}
-        className="w-screen h-screen flex justify-center items-center"
-        style={{
-          WebkitTouchCallout: 'none',
-          WebkitUserSelect: 'none',
-          KhtmlUserSelect: 'none',
-          MozUserSelect: 'none',
-          msUserSelect: 'none',
-          userSelect: 'none',
-        }}
-      >
-        <Navigation />
-        <Component {...pageProps} />
-      </div>
-    </TodoContextProvider>
+    <AuthContextProvider>
+      <TodoContextProvider>
+        <div
+          onContextMenu={prevent}
+          onDragStart={prevent}
+          className="w-screen h-screen flex justify-center items-center"
+          style={{
+            WebkitTouchCallout: 'none',
+            WebkitUserSelect: 'none',
+            KhtmlUserSelect: 'none',
+            MozUserSelect: 'none',
+            msUserSelect: 'none',
+            userSelect: 'none',
+          }}
+        >
+          <Navigation />
+          <Component {...pageProps} />
+        </div>
+      </TodoContextProvider>
+    </AuthContextProvider>
   );
 };
 

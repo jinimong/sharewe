@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import React from 'react';
 import { supabase } from '../api';
+import { useAuthContext } from '../contexts/AuthContext';
 
 const Home: React.FC = () => {
-  const user = supabase.auth.user();
+  const { user } = useAuthContext();
   return (
     <div className="text-center">
       <h1 className="text-2xl font-bold text-gray-400 dark:text-gray-100 py-8">

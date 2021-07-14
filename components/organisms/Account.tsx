@@ -2,9 +2,10 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import { supabase } from '../../api';
 import FormInput from '../atomics/FormInput';
 import Button from '../atomics/Button';
+import { useAuthContext } from '../../contexts/AuthContext';
 
 const Account: React.FC = () => {
-  const user = supabase.auth.user();
+  const { user } = useAuthContext();
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState<string | null>(null);
   const [avatar, setAvatar] = useState<string | null>(null);
@@ -12,7 +13,6 @@ const Account: React.FC = () => {
   const getProfile = async () => {
     try {
       setLoading(true);
-      const user = supabase.auth.user();
       const { data, error, status } = await supabase
         .from('profiles')
         .select(`username, avatar_url`)
@@ -41,7 +41,6 @@ const Account: React.FC = () => {
   }) => {
     try {
       setLoading(true);
-      const user = supabase.auth.user();
       const updates = {
         id: user?.id,
         username,

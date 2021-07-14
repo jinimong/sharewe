@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import { Auth } from '@supabase/ui';
 import { supabase } from '../api';
 import { useRouter } from 'next/router';
+import { useAuthContext } from '../contexts/AuthContext';
 
 const Login: React.FC = () => {
-  const user = supabase.auth.user();
+  const { user } = useAuthContext();
   const router = useRouter();
   useEffect(() => {
     if (user) {

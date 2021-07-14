@@ -1,11 +1,12 @@
 import React, { useCallback, useState } from 'react';
 import { supabase } from '../../api';
+import { useAuthContext } from '../../contexts/AuthContext';
 import { useTodoContext } from '../../contexts/TodoContext';
 
 const TodoCreate: React.FC = () => {
   const [text, setText] = useState('');
   const { dispatch } = useTodoContext();
-  const user = supabase.auth.user();
+  const { user } = useAuthContext();
 
   const onCreate = useCallback(
     async (text: string) => {
