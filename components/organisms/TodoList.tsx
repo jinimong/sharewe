@@ -33,7 +33,7 @@ const TodoList: React.FC = () => {
   );
 
   return (
-    <ul className="mt-4">
+    <ul>
       {todos.map(({ id, text, done }) => (
         <li
           key={id}

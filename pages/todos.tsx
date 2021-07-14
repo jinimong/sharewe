@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { supabase } from '../api';
 import TodoCreate from '../components/organisms/TodoCreate';
 import TodoList from '../components/organisms/TodoList';
@@ -8,10 +8,12 @@ import { StateType, useTodoContext } from '../contexts/TodoContext';
 import { useAuthContext } from '../contexts/AuthContext';
 
 const Todos: React.FC<StateType> = () => {
+  const [loading, setLoading] = useState(false);
   const { dispatch } = useTodoContext();
   const { user } = useAuthContext();
 
   useEffect(() => {
+    setLoading(true);
     if (user) {
       const fetchTodos = async () => {
         const { data: todos, error } = await supabase
@@ -22,6 +24,7 @@ const Todos: React.FC<StateType> = () => {
           alert(error.message);
         } else {
           dispatch({ type: 'INITIALIZE', todos });
+          setLoading(false);
         }
       };
       fetchTodos();
@@ -31,8 +34,8 @@ const Todos: React.FC<StateType> = () => {
   return (
     <div className="w-full h-full text-center">
       <div className="py-16 text-xl">To Do App</div>
-      <TodoList />
       <TodoCreate />
+      {loading ? <>loading...</> : <TodoList />}
     </div>
   );
 };
