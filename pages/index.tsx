@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import React from 'react';
-import { supabase } from '../api';
 import { useAuthContext } from '../contexts/AuthContext';
 
 const Home: React.FC = () => {

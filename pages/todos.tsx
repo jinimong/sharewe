@@ -1,4 +1,3 @@
-import { GetServerSideProps } from 'next';
 import { useEffect, useState } from 'react';
 import { supabase } from '../api';
 import TodoCreate from '../components/organisms/TodoCreate';

@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-import Link from 'next/link';
 import { useTodoContext } from '../../contexts/TodoContext';
 import { supabase } from '../../api';
 
