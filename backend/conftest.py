@@ -1,10 +1,7 @@
 import pytest
 from pytest_factoryboy import register
-from core.factories import UserFactory
 from django.utils import timezone
-
-
-register(UserFactory)
+from rest_framework.test import APIClient
 
 
 @pytest.fixture(autouse=True)

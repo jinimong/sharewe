@@ -7,4 +7,4 @@ class TodoFactory(factory.django.DjangoModelFactory):
 
     text = factory.Faker("slug")
     done = factory.Faker("boolean")
-    user = factory.SubFactory("core.factories.UserFactory")
+    user = factory.SubFactory("users.factories.UserFactory")
