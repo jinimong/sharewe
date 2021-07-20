@@ -17,3 +17,8 @@ def faker_session_locale():
 @pytest.fixture(scope="session", autouse=True)
 def faker_seed():
     return timezone.now()
+
+
+@pytest.fixture(scope="session")
+def api_client():
+    return APIClient()
